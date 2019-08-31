@@ -1,0 +1,70 @@
+<h3>Add a new Expense</h3>
+<div [hidden]="submitted" style="width: 300px;">
+    <form (ngSubmit)="onSubmit()" ngNativeValidate>
+        <div class="form-group">
+            <label for="reference">Reference</label>
+            <input type="text" class="form-control" id="reference" required [(ngModel)]="expense.reference" name="reference">
+        </div>
+
+        <div class="form-group">
+            <label for="expenseReport">Expense report</label>
+            <select class="form-control" id="expenseReport" [(ngModel)]="expense.expenseReport" required name="expenseReport">
+                <option *ngFor="let expenseReport of expenseReports | async" [ngValue]="expenseReport">{{expenseReport.reference}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" id="date" required [(ngModel)]="expense.date" name="date">
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" class="form-control" id="image" maxlength="6400"  formenctype="multipart/form-data" required [(ngModel)]="expense.image" name="image" (change)="onFileSelected($event)">
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" required [(ngModel)]="expense.category" name="category">
+                <option *ngFor="let category of categories | async" [ngValue]="category">{{category.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" required [(ngModel)]="expense.description" name="description">
+        </div>
+
+        <div class="form-group">
+            <label for="amount_ini">Amount</label>
+            <input type="number" class="form-control" id="amount_ini" required min="0.01" step="0.001" [(ngModel)]="expense.amount_ini" name="amount_ini">
+        </div>
+
+        <div class="form-group">
+            <label for="currency">Currency</label>
+            <select class="form-control" id="currency" [(ngModel)]="expense.currency" name="currency" required>
+                <option *ngFor="let currency of currencies | async" [ngValue]="currency">{{currency.description}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <div class="radio" >
+                Draft
+                <label class="btn btn-default blue">
+                    <input type="radio" class="toggle" [value]="1" name="draft" [(ngModel)]="expense.draft">Yes
+                </label>
+                <label class="btn btn-default blue">
+                    <input type="radio" class="toggle" [value]="0" name="draft" [(ngModel)]="expense.draft">No
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button class="btn btn-secondary" routerLink="/user/userExpenses" routerLinkActive="active">Go back</button>
+    </form>
+</div>
+<div [hidden]="!submitted">
+    <h4>You submitted successfully!</h4>
+    <button class="btn btn-success" (click)="newExpense()">Add</button>
+    <button class="btn btn-secondary" routerLink="/user/userExpenses" routerLinkActive="active">Go back</button>
+</div>

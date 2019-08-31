@@ -1,0 +1,33 @@
+<div [hidden]="!submitted" class="alert {{alertcolor}} alert-dismissible fade show" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div [innerHTML]="alertmsg"></div>
+</div>
+<h3>Update a RequesterType</h3>
+<div style="width: 300px;">
+    <form [formGroup]="requesterTeamForm" (ngSubmit)="onSubmit(requesterTeamForm.value)" ngNativeValidate>
+
+        <div class="form-group">
+            <label for="id"></label>
+            <input type="text" hidden class="form-control" id="id" required formControlName="id">
+        </div>
+
+        <div class="form-group">
+            <label for="team">Team</label>
+            <select class="form-control" id="team"  required formControlName="team" [compareWith]="compareFn">
+                <option *ngFor="let team of teams | async" [ngValue]="team">{{team.code}} >> {{team.description}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="requester">Requester</label>
+            <select class="form-control" id="requester"  required formControlName="requester" [compareWith]="compareFn">
+                <option *ngFor="let requester of requesters | async" [ngValue]="requester">{{requester.employee.personal_number}} >> {{requester.employee.first_name}} {{requester.employee.last_name}}</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+        <button class="btn btn-secondary" routerLink="/admin/requesterTeams" routerLinkActive="active">Go back</button>
+    </form>
+</div>

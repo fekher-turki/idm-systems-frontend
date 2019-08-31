@@ -1,0 +1,35 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Countries'" [icon]="'fa-edit'"></app-page-header>
+    <div>
+        <button type="button" [routerLink]="['addCountry']" class="btn btn-primary" role="button" routerlinkactive="active">Add country</button>
+        <button type="button" class="btn btn-danger" (click)='deleteCountries()'>Delete All</button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let country of countries | async" style="width: 300px;">
+                <td>
+                    {{country.id}}
+                </td>
+                <td>
+                    {{country.code}}
+                </td>
+                <td>
+                    {{country.name}}
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteCountry(country.id)'></button>
+                    <button [routerLink]="['updateCountry', country.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

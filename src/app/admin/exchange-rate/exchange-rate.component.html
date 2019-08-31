@@ -1,0 +1,39 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'ExchangeRates'" [icon]="'fa-edit'"></app-page-header>
+    <div>
+        <button type="button" [routerLink]="['addExchangeRate']" class="btn btn-primary" role="button" routerlinkactive="active">Add ExchangeRate</button>
+        <button type="button" class="btn btn-danger" (click)='deleteExchangeRates()'>Delete All</button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Currency</th>
+                <th>Value</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let exchangeRate of exchangeRates | async" style="width: 300px;">
+                <td>
+                    {{exchangeRate.id}}
+                </td>
+                <td>
+                    {{exchangeRate.currency.description}}
+                </td>
+                <td>
+                    {{exchangeRate.value}} TND
+                </td>
+                <td>
+                    {{exchangeRate.date}}
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteExchangeRate(exchangeRate.id)'></button>
+                    <button [routerLink]="['updateExchangeRate', exchangeRate.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

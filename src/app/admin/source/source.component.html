@@ -1,0 +1,67 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Sources'" [icon]="'fa-edit'"></app-page-header>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Source type</th>
+                <th>Company</th>
+                <th>Client</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>status</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let source of sources | async" style="width: 300px;">
+                <td>
+                    {{source.id}}
+                </td>
+                <td>
+                    {{source.code}}
+                </td>
+                <td>
+                    {{source.description}}
+                </td>
+                <td>
+                    {{source.sourceType.name}}
+                </td>
+                <td>
+                    {{source.company.name}}
+                </td>
+
+                <td>
+                    {{source.client.name}}
+                </td>
+
+                <td>
+                    {{source.date_start}}
+                </td>
+                <td>
+                    {{source.date_end}}
+                </td>
+                <td>
+                    <div *ngIf="source.status == 0">
+                        <font color="red">Enclosed</font>
+                    </div>
+                    <div *ngIf="source.status == 1">
+                        <font color="green">Ongoing</font>
+                    </div>
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteSource(source.id)'></button>
+                    <button [routerLink]="['updateSource', source.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <button type="button" [routerLink]="['addSource']" class="btn btn-primary" role="button" routerlinkactive="active">Add source</button>
+        <button type="button" class="btn btn-danger" (click)='deleteSources()'>Delete All</button>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

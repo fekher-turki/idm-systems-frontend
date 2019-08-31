@@ -1,0 +1,114 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'ExpenseReports'" [icon]="'fa-edit'"></app-page-header>
+
+    <div class="jumbotron" *ngFor="let expenseReport of expenseReports | async">
+        <b>ID: </b>
+        {{expenseReport.id}} |
+        <b>Company: </b>
+        {{expenseReport.requesterTeam.requester.employee.department.company.name}}
+        |
+        <b>Department: </b>
+        {{expenseReport.requesterTeam.requester.employee.department.name}}
+        |
+        <b>Client: </b>
+        {{expenseReport.sourceTeam.source.client.name}}
+        |
+        <b>Source: </b>
+        {{expenseReport.sourceTeam.source.description}}
+        |
+        <b>Team: </b>
+        {{expenseReport.sourceTeam.team.description}}
+        <br>
+        <b>Approver Team: </b>
+        <ng-container *ngFor="let approverTeam of approverTeams | async">
+            <ng-container *ngIf="expenseReport.sourceTeam.team.id==approverTeam.team.id">
+                <li>[{{approverTeam.approver.employee.id}}] {{approverTeam.approver.employee.personal_number}}: {{approverTeam.approver.employee.first_name}} {{approverTeam.approver.employee.last_name}}</li>
+            </ng-container>
+        </ng-container>
+        <br>
+        <b>Reference: </b>
+        {{expenseReport.reference}}
+        |
+        <b>Requester: </b>
+        [{{expenseReport.requesterTeam.requester.employee.id}}] {{expenseReport.requesterTeam.requester.employee.personal_number}}: {{expenseReport.requesterTeam.requester.employee.first_name}} {{expenseReport.requesterTeam.requester.employee.last_name}}
+        |
+        <b>Date start: </b>
+        {{expenseReport.date_start}}
+        |
+        <b>Date end: </b>
+        {{expenseReport.date_end}}
+    </div>
+    <hr/>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th id="total" colspan="7" ><font class="center">Total :</font></th>
+                <td>{{total | number:'.3'}} TND</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>ID</th>
+                <th>Reference</th>
+                <th>Date</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Initial amount</th>
+                <th>Final amount</th>
+                <th>ExchangeRate</th>
+                <th>Approverd</th>
+                <th>Action</th>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr *ngFor="let expense of expenses | async" style="width: 300px;">
+                <ng-container *ngIf="expense.draft == false">
+                    <td>{{expense.id}}</td>
+                    <td>{{expense.reference}}</td>
+                    <td>{{expense.date}}</td>
+                    <td><img src="http://127.0.0.1:8000{{expense.image}}" alt="expense" class="center"></td>
+                    <td>{{expense.category.name}}</td>
+                    <td>{{expense.description}}</td>
+                    <td>{{expense.amount_ini}} {{expense.currency.code}}</td>
+                    <td>{{expense.amount_final}} TND</td>
+                    <td>{{expense.exchangeRate.value}}</td>
+                    <td>
+                        <ng-container *ngIf="expense.status==true">Approved</ng-container>
+                        <ng-container *ngIf="expense.status==false">Not Approved</ng-container>
+                    </td>
+                    <td>Number of approvers: {{approvers}} <br/>
+                        <ng-container *ngFor="let expenseStatus of expenseStatuses | async">
+                            <ng-container *ngIf="expenseStatus.expense==expense.id">
+                                <ng-container *ngIf="expenseStatus.status==1">
+                                    <ng-container *ngIf="expenseStatus.approver.employee.user.id==user">
+                                        <font class="space fa fa-check-circle-o fa-2x decided"></font>
+                                    </ng-container>
+                                    <ng-container *ngIf="expenseStatus.approver.employee.user.id!=user">
+                                        <font class="space fa fa-check-circle-o fa-2x"></font>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-container *ngIf="expenseStatus.status==0">
+                                    <ng-container *ngIf="expenseStatus.approver.employee.user.id==user">
+                                        <font class="space fa fa-ban fa-2x decided"></font>
+                                    </ng-container>
+                                    <ng-container *ngIf="expenseStatus.approver.employee.user.id!=user">
+                                        <font class="space fa fa-ban fa-2x"></font>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </td>
+                    <td>
+                        <button [routerLink]="['../../detailExpense', expense.id]" class="btn btn-info fa fa-eye" role="button" routerlinkactive="active"></button>
+                        <button (click)="approve(expense.id)" class="btn btn-success fa fa-check-circle-o" role="button" routerlinkactive="active"></button>
+                        <button (click)="decline(expense.id)" class="btn btn-danger fa fa-ban" role="button" routerlinkactive="active"></button>
+                    </td>
+                </ng-container>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <router-outlet></router-outlet>
+</div>

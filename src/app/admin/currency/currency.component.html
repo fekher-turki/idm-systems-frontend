@@ -1,0 +1,43 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Currencies'" [icon]="'fa-edit'"></app-page-header>
+    <div>
+        <button type="button" [routerLink]="['addCurrency']" class="btn btn-primary" role="button" routerlinkactive="active">Add Currency</button>
+        <button type="button" class="btn btn-danger" (click)='deleteCurrencies()'>Delete All</button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Decimal place</th>
+                <th>Symbol</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let currency of currencies | async" style="width: 300px;">
+                <td>
+                    {{currency.id}}
+                </td>
+                <td>
+                    {{currency.code}}
+                </td>
+                <td>
+                    {{currency.description}}
+                </td>
+                <td>
+                    {{currency.decimal_place}}
+                </td>
+                <td>
+                    {{currency.symbol}}
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteCurrency(currency.id)'></button>
+                    <button [routerLink]="['updateCurrency', currency.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

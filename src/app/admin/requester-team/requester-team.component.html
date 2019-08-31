@@ -1,0 +1,36 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'RequesterTeams'" [icon]="'fa-edit'"></app-page-header>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Team</th>
+                <th>Requester</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let requesterTeam of requesterTeams | async" style="width: 300px;">
+                <td>
+                    {{requesterTeam.id}}
+                </td>
+                <td>
+                    {{requesterTeam.team.code}} >> {{requesterTeam.team.description}}
+                </td>
+                <td>
+                    {{requesterTeam.requester.employee.personal_number}} >> {{requesterTeam.requester.employee.first_name}} {{requesterTeam.requester.employee.last_name}}
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteRequesterTeam(requesterTeam.id)'></button>
+                    <button [routerLink]="['updateRequesterTeam', requesterTeam.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <button type="button" [routerLink]="['addRequesterTeam']" class="btn btn-primary" role="button" routerlinkactive="active">Add requesterTeam</button>
+        <button type="button" class="btn btn-danger" (click)='deleteRequesterTeams()'>Delete All</button>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

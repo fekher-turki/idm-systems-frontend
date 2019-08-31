@@ -1,0 +1,30 @@
+<h3>Add a new ExchangeRate</h3>
+<div [hidden]="submitted" style="width: 300px;">
+    <form (ngSubmit)="onSubmit()" ngNativeValidate>
+
+        <div class="form-group">
+            <label for="currency">Currency</label>
+            <select class="form-control" id="currency" required [(ngModel)]="exchangeRate.currency" name="currency">
+                <option *ngFor="let currency of currencies | async" [ngValue]="currency">{{currency.description }}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="value">Value to TND</label>
+            <input type="text" class="form-control" id="value" required [(ngModel)]="exchangeRate.value" name="value">
+        </div>
+		
+		<div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" id="date" required [(ngModel)]="exchangeRate.date" name="date">
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button class="btn btn-secondary" routerLink="/admin/exchangeRates" routerLinkActive="active">Go back</button>
+    </form>
+</div>
+<div [hidden]="!submitted">
+    <h4>You submitted successfully!</h4>
+    <button class="btn btn-success" (click)="newExchangeRate()">Add</button>
+    <button class="btn btn-secondary" routerLink="/admin/exchangeRates" routerLinkActive="active">Go back</button>
+</div>

@@ -1,0 +1,35 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'DepartmentResponsibles'" [icon]="'fa-edit'"></app-page-header>
+    <div>
+        <button type="button" [routerLink]="['addDepartmentResponsible']" class="btn btn-primary" role="button" routerlinkactive="active">Add departmentResponsible</button>
+        <button type="button" class="btn btn-danger" (click)='deleteDepartmentResponsibles()'>Delete All</button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Department</th>
+                <th>Responsible</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let departmentResponsible of departmentResponsibles | async" style="width: 300px;">
+                <td>
+                    {{departmentResponsible.id}}
+                </td>
+                <td>
+                    {{departmentResponsible.department.company.name}}: {{departmentResponsible.department.name}}
+                </td>
+                <td>
+                    {{departmentResponsible.employee.personal_number}} >> {{departmentResponsible.employee.first_name}} {{departmentResponsible.employee.last_name}}
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteDepartmentResponsible(departmentResponsible.id)'></button>
+                    <button [routerLink]="['updateDepartmentResponsible', departmentResponsible.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

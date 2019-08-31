@@ -1,0 +1,19 @@
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+}
+.approved {
+    background-color: #28a745;
+}
+.declined {
+    background-color: #dc3545;
+}
+.decided {
+    color: #007bff;
+}
+.space {
+    margin-left: 5px;
+    margin-right: 5px;
+}

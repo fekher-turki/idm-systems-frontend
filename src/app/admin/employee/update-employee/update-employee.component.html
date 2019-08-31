@@ -1,0 +1,142 @@
+<div [hidden]="!submitted" class="alert {{alertcolor}} alert-dismissible fade show" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div [innerHTML]="alertmsg"></div>
+</div>
+<h3>Update an Employee</h3>
+<div style="width: 300px;">
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit(employeeForm.value)" ngNativeValidate>
+
+        <div class="form-group">
+            <label for="id"></label>
+            <input type="text" hidden class="form-control" id="id" required formControlName="id">
+        </div>
+
+        <div class="form-group">
+            <label for="personal_number">Personal number</label>
+            <input type="text" class="form-control" id="personal_number" required formControlName="personal_number">
+        </div>
+
+        <div class="form-group">
+            <label for="first_name">First name</label>
+            <input type="text" class="form-control" id="first_name" required formControlName="first_name">
+        </div>
+
+        <div class="form-group">
+            <label for="last_name">Last name</label>
+            <input type="text" class="form-control" id="last_name" required formControlName="last_name">
+        </div>
+
+        <div class="form-group">
+            <label for="tel_number">Phone Number</label>
+            <input type="text" class="form-control" id="tel_number" formControlName="tel_number">
+        </div>
+
+        <div class="form-group">
+            <label for="internal_number">Internal Number</label>
+            <input type="text" class="form-control" id="internal_number" formControlName="internal_number">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email">
+        </div>
+
+        <div class="form-group">
+            <label for="department">Department</label>
+            <select class="form-control" id="department" required formControlName="department" [compareWith]="compareFn">
+                <option *ngFor="let department of departments | async" [ngValue]="department">{{ department.name }}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="responsible">Responsible</label>
+            <select class="form-control" id="responsible" formControlName="responsible" [compareWith]="compareFn">
+                <option [ngValue]="null">---</option>
+                <option *ngFor="let responsible of responsibles | async" [ngValue]="responsible.id">{{responsible.personal_number}} >> {{responsible.first_name}} {{responsible.first_name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="address1">Address 1</label>
+            <input type="text" class="form-control" id="address1" formControlName="address1">
+        </div>
+
+        <div class="form-group">
+            <label for="address2">Address 2</label>
+            <input type="text" class="form-control" id="address2" formControlName="address2">
+        </div>
+
+        <div class="form-group">
+            <label for="zip_code">Zip code</label>
+            <input type="text" class="form-control" id="zip_code" formControlName="zip_code">
+        </div>
+
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" formControlName="city">
+        </div>
+
+        <div class="form-group">
+            <label for="country">Country</label>
+            <select class="form-control" id="country" required formControlName="country" [compareWith]="compareFn">
+                <option *ngFor="let country of countries | async" [ngValue]="country">{{country.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="birthday">Birthday</label>
+            <input type="date" class="form-control" id="birthday" formControlName="birthday">
+        </div>
+
+        <div class="form-group">
+            <div class="radio" >
+                Gender
+                <label class="btn btn-default blue">
+                    <input type="radio" class="toggle" [value]="true" name="gender" formControlName="gender">Male
+                </label>
+                <label class="btn btn-default blue">
+                    <input type="radio" class="toggle" [value]="false" name="gender" formControlName="gender">Female
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="radio" >
+                Driver license
+                <label class="btn btn-default blue">
+                    <input type="radio" class="toggle" [value]="true" name="driver_license" formControlName="driver_license">Yes
+                </label>
+                <label class="btn btn-default blue">
+                    <input type="radio" class="toggle" [value]="false" name="driver_license" formControlName="driver_license">No
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="position">Position</label>
+            <input type="text" class="form-control" id="position" formControlName="position">
+        </div>
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" formControlName="title">
+        </div>
+
+        <div class="form-group">
+            <div class="radio" >
+                Authorized approver
+                <label class="btn btn-default blue">
+                    <input type="radio" class="toggle" [value]="true" name="authorized_approver" required formControlName="authorized_approver">Yes
+                </label>
+                <label class="btn btn-default blue">
+                    <input type="radio" class="toggle" [value]="false" name="authorized_approver" required formControlName="authorized_approver">No
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+        <button class="btn btn-secondary" routerLink="/admin/employees" routerLinkActive="active">Go back</button>
+    </form>
+</div>

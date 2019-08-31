@@ -1,0 +1,205 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <div class="list-group">
+        <a routerLink="/admin/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>{{ 'Dashboard' | translate }}</span>
+        </a>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Settings' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/admin/registers']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-fw fa-plus"></i>&nbsp;
+                            <span>{{ 'Register' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/countries']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-fw fa-flag"></i>&nbsp;
+                            <span>{{ 'Country' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/rules']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-fw fa-sliders"></i>&nbsp;
+                            <span>{{ 'Rule' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/categories']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-fw fa-list"></i>&nbsp;
+                            <span>{{ 'Category' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/currencies']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-fw fa-money"></i>&nbsp;
+                            <span>{{ 'Currency' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/exchangeRates']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-fw fa-money"></i>&nbsp;
+                            <span>{{ 'Exchange Rate' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="list-group">
+            <a class="list-group-item">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Client' | translate }}</span>
+            </a>
+            <ul>
+                <li class="list-group">
+                    <a [routerLink]="['/admin/clients']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-user"></i>&nbsp;
+                        <span>{{ 'Client' | translate }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/admin/clientTypes']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-user-circle-o"></i>&nbsp;
+                        <span>{{ 'Client type' | translate }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="list-group">
+            <a class="list-group-item">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Company' | translate }}</span>
+            </a>
+            <ul>
+                <li class="list-group">
+                    <a [routerLink]="['/admin/companies']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-building"></i>&nbsp;
+                        <span>{{ 'Company' | translate }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/admin/departments']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-building-o"></i>&nbsp;
+                        <span>{{ 'Department' | translate }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/admin/departmentResponsibles']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-user"></i>&nbsp;
+                        <span>{{ 'Department Responsible' | translate }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="list-group">
+            <a class="list-group-item">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Employee' | translate }}</span>
+            </a>
+            <ul>
+                <li class="list-group">
+                    <a [routerLink]="['/admin/employees']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-user"></i>&nbsp;
+                        <span>{{ 'Employee' | translate }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/admin/approvers']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-thumbs-up"></i>&nbsp;
+                        <span>{{ 'Approver' | translate }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/admin/requesters']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-arrow-right"></i>&nbsp;
+                        <span>{{ 'Requester' | translate }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="list-group">
+            <a class="list-group-item">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Source' | translate }}</span>
+            </a>
+            <ul>
+                <li class="list-group">
+                    <a [routerLink]="['/admin/sources']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-object-group"></i>&nbsp;
+                        <span>{{ 'Source' | translate }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/admin/sourceTypes']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-bars"></i>&nbsp;
+                        <span>{{ 'Source Type' | translate }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="list-group">
+            <a class="list-group-item">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Team' | translate }}</span>
+            </a>
+            <ul>
+                <li>
+                    <a [routerLink]="['/admin/teams']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-users"></i>&nbsp;
+                        <span>{{ 'Team' | translate }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/admin/sourceTeams']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-users"></i>&nbsp;
+                        <span>{{ 'Source team' | translate }}</span>
+                    </a>
+                </li>
+                <li class="list-group">
+                    <a [routerLink]="['/admin/approverTeams']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-thumbs-up"></i>&nbsp;
+                        <span>{{ 'Approver Team' | translate }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/admin/requesterTeams']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <i class="fa fa-fw fa-arrow-right"></i>&nbsp;
+                        <span>{{ 'Requester Team' | translate }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <a [routerLink]="['/admin/expenseReports']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-files-o "></i>&nbsp;
+            <span>{{ 'Expense Reports' | translate }}</span>
+        </a>
+                <div class="header-fields">
+            <a (click)="rltAndLtr()" class="list-group-item">
+                <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
+            </a>
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('profile')">
+                    <span><i class="fa fa-user"></i>&nbsp; John Smith</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a [routerLink]="['/login']" (click)="onLoggedout()">
+                                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
+        <span>{{ 'Collapse Sidebar' | translate }}</span>
+    </div>
+</nav>

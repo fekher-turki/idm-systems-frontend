@@ -1,0 +1,64 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Expenses'" [icon]="'fa-edit'"></app-page-header>
+
+    <div>
+        <button type="button" [routerLink]="['addExpense']" class="btn btn-primary" role="button" routerlinkactive="active">Add expense</button>
+    </div>
+
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th id="total" colspan="8" ><font class="center">Total :</font></th>
+                    <td>{{total | number:'.3'}} TND</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Expense Report</th>
+                    <th>ID</th>
+                    <th>Reference</th>
+                    <th>Date</th>
+                    <th>Image</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Initial amount</th>
+                    <th>Final amount</th>
+                    <th>Exchange rate value</th>
+                    <th>Draft</th>
+                    <th>Action</th>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr *ngFor="let expense of expenses | async" style="width: 300px;">
+                    <td>{{expense.expenseReport.reference}}</td>
+                    <td>{{expense.id}}</td>
+                    <td>{{expense.reference}}</td>
+                    <td>{{expense.date}}</td>
+                    <td><img src="{{baseUrl+expense.image}}" alt="expense" class="center"></td>
+                    <td>{{expense.category.name}}</td>
+                    <td>{{expense.description}}</td>
+                    <td>{{expense.amount_ini}} {{expense.currency.code}}</td>
+                    <td>{{expense.amount_final}} TND</td>
+                    <td>{{expense.exchangeRate.value}}</td>
+                    <td>
+                        <div *ngIf="expense.draft == 0">
+                            <font color="red">No</font>
+                        </div>
+                        <div *ngIf="expense.draft == 1">
+                            <font color="green">Yes</font>
+                        </div>
+                    </td>
+                    <td>
+                        <button [routerLink]="['detailExpense', expense.id]" class="btn btn-info fa fa-eye" role="button" routerlinkactive="active"></button>
+                        <button [routerLink]="['updateExpense', expense.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                        <button  class="btn btn-danger fa fa-trash" (click)='deleteExpense(expense.id)'></button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

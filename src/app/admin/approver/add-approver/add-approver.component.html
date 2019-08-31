@@ -1,0 +1,19 @@
+<h3>Add a new Approver</h3>
+<div [hidden]="submitted" style="width: 300px;">
+    <form (ngSubmit)="onSubmit()" ngNativeValidate>
+        <div class="form-group">
+            <label for="employee">Employee</label>
+            <select class="form-control" id="employee" required [(ngModel)]="approver.employee" name="employee">
+                <option *ngFor="let employee of employees | async" [ngValue]="employee">{{employee.personal_number}} >> {{employee.first_name}} {{employee.last_name}}</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button class="btn btn-secondary" routerLink="/admin/approvers" routerLinkActive="active">Go back</button>
+    </form>
+</div>
+<div [hidden]="!submitted">
+    <h4>You submitted successfully!</h4>
+    <button class="btn btn-success" (click)="newApprover()">Add</button>
+    <button class="btn btn-secondary" routerLink="/admin/approvers" routerLinkActive="active">Go back</button>
+</div>

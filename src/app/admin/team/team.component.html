@@ -1,0 +1,34 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Teams'" [icon]="'fa-edit'"></app-page-header>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let team of teams | async" style="width: 300px;">
+                <td>
+                    {{team.id}}
+                </td>
+                <td>
+                    {{team.code}}
+                </td>
+                <td>
+                    {{team.description}}
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteTeam(team.id)'></button>
+                    <button [routerLink]="['updateTeam', team.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <button type="button" [routerLink]="['addTeam']" class="btn btn-primary" role="button" routerlinkactive="active">Add team</button>
+        <button type="button" class="btn btn-danger" (click)='deleteTeams()'>Delete All</button>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

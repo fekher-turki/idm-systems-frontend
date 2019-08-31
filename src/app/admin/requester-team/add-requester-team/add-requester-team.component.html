@@ -1,0 +1,26 @@
+<h3>Add a new RequesterTeam</h3>
+<div [hidden]="submitted" style="width: 300px;">
+    <form (ngSubmit)="onSubmit()" ngNativeValidate>
+        <div class="form-group">
+            <label for="team">Team</label>
+            <select class="form-control" id="team" required [(ngModel)]="requesterTeam.team" name="team">
+                <option *ngFor="let team of teams | async" [ngValue]="team">{{team.code}} >> {{team.description}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="requester">Requester</label>
+            <select class="form-control" id="requester" required [(ngModel)]="requesterTeam.requester" name="requester">
+                <option *ngFor="let requester of requesters | async" [ngValue]="requester">{{requester.employee.personal_number}} >> {{requester.employee.first_name}} {{requester.employee.last_name}}</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button class="btn btn-secondary" routerLink="/admin/requesterTeams" routerLinkActive="active">Go back</button>
+    </form>
+</div>
+<div [hidden]="!submitted">
+    <h4>You submitted successfully!</h4>
+    <button class="btn btn-success" (click)="newRequesterTeam()">Add</button>
+    <button class="btn btn-secondary" routerLink="/admin/requesterTeams" routerLinkActive="active">Go back</button>
+</div>

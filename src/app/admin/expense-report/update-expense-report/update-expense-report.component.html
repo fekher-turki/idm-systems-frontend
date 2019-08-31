@@ -1,0 +1,59 @@
+<div [hidden]="!submitted" class="alert {{alertcolor}} alert-dismissible fade show" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div [innerHTML]="alertmsg"></div>
+</div>
+<h3>Update a ExpenseReport</h3>
+<div style="width: 300px;">
+    <form [formGroup]="expenseReportForm" (ngSubmit)="onSubmit(expenseReportForm.value)">
+
+        <div class="form-group">
+            <label for="id"></label>
+            <input type="text" hidden class="form-control" id="id" required formControlName="id">
+        </div>
+
+        <div class="form-group">
+            <label for="reference">Reference</label>
+            <input type="text" class="form-control" id="reference" required formControlName="reference">
+        </div>
+
+        <div class="form-group">
+            <label for="requesterTeam">Requester</label>
+            <select class="form-control" id="requesterTeam"  required formControlName="requesterTeam" [compareWith]="compareFn">
+                <option *ngFor="let requesterTeam of requesterTeams | async" [ngValue]="requesterTeam">
+                    [Team: {{requesterTeam.team.description}}] {{requesterTeam.requester.employee.personal_number}} >> {{requesterTeam.requester.employee.first_name}} {{requesterTeam.requester.employee.last_name}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="date_start">Date start</label>
+            <input type="date" class="form-control" id="date_start" required formControlName="date_start">
+        </div>
+
+        <div class="form-group">
+            <label for="date_end">Date end</label>
+            <input type="date" class="form-control" id="date_end" required formControlName="date_end">
+        </div>
+
+        <div class="form-group">
+            <label for="rule">Rule</label>
+            <select class="form-control" id="rule"  required formControlName="rule" [compareWith]="compareFn">
+                <option *ngFor="let rule of rules | async" [ngValue]="rule">{{rule.description}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="sourceTeam">Source team</label>
+            <select class="form-control" id="sourceTeam"  required formControlName="sourceTeam" [compareWith]="compareFn">
+                <option *ngFor="let sourceTeam of sourceTeams | async" [ngValue]="sourceTeam">{{sourceTeam.source.description}} - {{sourceTeam.team.description}}
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+        <button class="btn btn-secondary" routerLink="/admin/expenseReports" routerLinkActive="active">Go back</button>
+    </form>
+</div>

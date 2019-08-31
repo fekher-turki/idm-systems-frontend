@@ -1,0 +1,47 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'ExpenseReports'" [icon]="'fa-edit'"></app-page-header>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Company</th>
+                <th>Department</th>
+                <th>Client</th>
+                <th>Source</th>
+                <th>Team</th>
+                <th>Approver Team</th>
+                <th>Reference</th>
+                <th>Requester</th>
+                <th>Date start</th>
+                <th>Date end</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let expenseReport of expenseReports | async" style="width: 300px;">
+                <td>{{expenseReport.id}}</td>
+                <td>{{expenseReport.requesterTeam.requester.employee.department.company.name}}</td>
+                <td>{{expenseReport.requesterTeam.requester.employee.department.name}}</td>
+                <td>{{expenseReport.sourceTeam.source.client.name}}</td>
+                <td>{{expenseReport.sourceTeam.source.description}}</td>
+                <td>{{expenseReport.sourceTeam.team.description}}</td>
+                <td>
+                    <ng-container *ngFor="let approverTeam of approverTeams | async">
+                        <ng-container *ngIf="expenseReport.sourceTeam.team.id==approverTeam.team.id">
+                            <li>[{{approverTeam.approver.employee.id}}] {{approverTeam.approver.employee.personal_number}}: {{approverTeam.approver.employee.first_name}} {{approverTeam.approver.employee.last_name}}</li>
+                        </ng-container>
+                    </ng-container>
+                </td>
+                <td>{{expenseReport.reference}}</td>
+                <td>[{{expenseReport.requesterTeam.requester.employee.id}}] {{expenseReport.requesterTeam.requester.employee.personal_number}}: {{expenseReport.requesterTeam.requester.employee.first_name}} {{expenseReport.requesterTeam.requester.employee.last_name}}<br></td>
+                <td>{{expenseReport.date_start}}</td>
+                <td>{{expenseReport.date_end}}</td>
+
+                <td>
+                    <button [routerLink]="['detailExpenseReport', expenseReport.id]" class="btn btn-info fa fa-eye" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

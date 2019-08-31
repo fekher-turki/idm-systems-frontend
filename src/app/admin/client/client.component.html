@@ -1,0 +1,59 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Clients'" [icon]="'fa-edit'"></app-page-header>
+    <div>
+        <button type="button" [routerLink]="['addClient']" class="btn btn-primary" role="button" routerlinkactive="active">Add client</button>
+        <button type="button" class="btn btn-danger" (click)='deleteClients()'>Delete All</button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Fiscal Number</th>
+                <th>VAT Number</th>
+                <th>Client type</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let client of clients | async" style="width: 300px;">
+                <td>
+                    {{client.id}}
+                </td>
+                <td>
+                    {{client.code}}
+                </td>
+                <td>
+                    {{client.name}}
+                </td>
+                <td>
+                    {{client.fiscal_number}}
+                </td>
+                <td>
+                    {{client.vat_number}}
+                </td>
+                <td>
+                    {{client.clientType.name}}
+                </td>
+                <td>
+                    {{client.tel_number}}
+                </td>
+                <td>
+                    {{client.email}}
+                </td>
+                <td>
+                    {{client.address1}}, {{client.address2}}, {{client.zip_code}}, {{client.city}}, {{client.country.name}}
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteClient(client.id)'></button>
+                    <button [routerLink]="['updateClient', client.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,39 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'ClientTypes'" [icon]="'fa-edit'"></app-page-header>
+    <div>
+        <button type="button" [routerLink]="['addClientType']" class="btn btn-primary" role="button" routerlinkactive="active">Add client type</button>
+        <button type="button" class="btn btn-danger" (click)='deleteClientTypes()'>Delete All</button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let clientType of clientTypes | async" style="width: 300px;">
+                <td>
+                    {{clientType.id}}
+                </td>
+                <td>
+                    {{clientType.code}}
+                </td>
+                <td>
+                    {{clientType.name}}
+                </td>
+                <td>
+                    {{clientType.description}}
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteClientType(clientType.id)'></button>
+                    <button [routerLink]="['updateClientType', clientType.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

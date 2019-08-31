@@ -1,0 +1,33 @@
+<h3>Add a new Currency</h3>
+<div [hidden]="submitted" style="width: 300px;">
+    <form (ngSubmit)="onSubmit()" ngNativeValidate>
+
+        <div class="form-group">
+            <label for="code">Code</label>
+            <input type="text" class="form-control" id="code" required [(ngModel)]="currency.code" name="code">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" required [(ngModel)]="currency.description" name="description">
+        </div>
+
+        <div class="form-group">
+            <label for="decimal_place">Decimal place</label>
+            <input type="text" class="form-control" id="decimal_place" required [(ngModel)]="currency.decimal_place" name="decimal_place">
+        </div>
+
+        <div class="form-group">
+            <label for="symbol">Symbol</label>
+            <input type="text" class="form-control" id="symbol" required [(ngModel)]="currency.symbol" name="symbol">
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button class="btn btn-secondary" routerLink="/admin/currencies" routerLinkActive="active">Go back</button>
+    </form>
+</div>
+<div [hidden]="!submitted">
+    <h4>You submitted successfully!</h4>
+    <button class="btn btn-success" (click)="newCurrency()">Add</button>
+    <button class="btn btn-secondary" routerLink="/admin/currencies" routerLinkActive="active">Go back</button>
+</div>

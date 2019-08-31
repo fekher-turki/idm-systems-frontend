@@ -1,0 +1,46 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Registers'" [icon]="'fa-edit'"></app-page-header>
+    <div>
+        <button type="button" [routerLink]="['addRegister']" class="btn btn-primary" role="button" routerlinkactive="active">Add User</button>
+        <button type="button" class="btn btn-danger" (click)='deleteRegisters()'>Delete All</button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Account Email</th>
+                <th>User Type</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let user of users | async" style="width: 300px;">
+                <td>
+                    {{user.id}}
+                </td>
+                <td>
+                    {{user.username}}
+                </td>
+                <td>
+                    {{user.email}}
+                </td>
+                <td>
+                    <ng-container *ngIf="user.user_type == 1">
+                        Admin
+                    </ng-container>
+                    <ng-container *ngIf="user.user_type == 2">
+                        Financial
+                    </ng-container>
+                    <ng-container *ngIf="user.user_type == 3">
+                        Employee
+                    </ng-container>
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteRegister(user.id)'></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

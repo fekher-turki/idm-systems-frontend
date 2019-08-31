@@ -1,0 +1,35 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Rules'" [icon]="'fa-edit'"></app-page-header>
+    <div>
+        <button type="button" [routerLink]="['addRule']" class="btn btn-primary" role="button" routerlinkactive="active">Add Rule</button>
+        <button type="button" class="btn btn-danger" (click)='deleteRules()'>Delete All</button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Value</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let rule of rules | async" style="width: 300px;">
+                <td>
+                    {{rule.id}}
+                </td>
+                <td>
+                    {{rule.description}}
+                </td>
+                <td>
+                    {{rule.value}} %
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteRule(rule.id)'></button>
+                    <button [routerLink]="['updateRule', rule.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

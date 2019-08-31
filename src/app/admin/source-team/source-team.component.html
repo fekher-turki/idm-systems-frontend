@@ -1,0 +1,36 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'SourceTeams'" [icon]="'fa-edit'"></app-page-header>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Source</th>
+                <th>Team</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let sourceTeam of sourceTeams | async" style="width: 300px;">
+                <td>
+                    {{sourceTeam.id}}
+                </td>
+                <td>
+                    {{sourceTeam.source.code}} >> {{sourceTeam.source.description}}
+                </td>
+                <td>
+                    {{sourceTeam.team.code}} >> {{sourceTeam.team.description}}
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteSourceTeam(sourceTeam.id)'></button>
+                    <button [routerLink]="['updateSourceTeam', sourceTeam.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <button type="button" [routerLink]="['addSourceTeam']" class="btn btn-primary" role="button" routerlinkactive="active">Add sourceTeam</button>
+        <button type="button" class="btn btn-danger" (click)='deleteSourceTeams()'>Delete All</button>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,55 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Companies'" [icon]="'fa-edit'"></app-page-header>
+    <div>
+        <button type="button" [routerLink]="['addCompany']" class="btn btn-primary" role="button" routerlinkactive="active">Add company</button>
+        <button type="button" class="btn btn-danger" (click)='deleteCompanies()'>Delete All</button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Fiscal Number</th>
+                <th>VAT Number</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let company of companies | async" style="width: 300px;">
+                <td>
+                    {{company.id}}
+                </td>
+                <td>
+                    {{company.code}}
+                </td>
+                <td>
+                    {{company.name}}
+                </td>
+                <td>
+                    {{company.fiscal_number}}
+                </td>
+                <td>
+                    {{company.vat_number}}
+                </td>
+                <td>
+                    {{company.tel_number}}
+                </td>
+                <td>
+                    {{company.email}}
+                </td>
+                <td>
+                    {{company.address1}}, {{company.address2}}, {{company.zip_code}}, {{company.city}}, {{company.country.name}}
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteCompany(company.id)'></button>
+                    <button [routerLink]="['updateCompany', company.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,34 @@
+<div [hidden]="!submitted" class="alert {{alertcolor}} alert-dismissible fade show" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div [innerHTML]="alertmsg"></div>
+</div>
+<h3>Update a SourceType</h3>
+<div style="width: 300px;">
+    <form [formGroup]="sourceTypeForm" (ngSubmit)="onSubmit(sourceTypeForm.value)" ngNativeValidate>
+
+        <div class="form-group">
+            <label for="id"></label>
+            <input type="text" hidden class="form-control" id="id" required formControlName="id">
+        </div>
+
+        <div class="form-group">
+            <label for="code">Code</label>
+            <input type="text" class="form-control" id="code" required formControlName="code">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" required formControlName="name">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Name</label>
+            <input type="text" class="form-control" id="description" required formControlName="description">
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+        <button class="btn btn-secondary" routerLink="/admin/sourceTypes" routerLinkActive="active">Go back</button>
+    </form>
+</div>

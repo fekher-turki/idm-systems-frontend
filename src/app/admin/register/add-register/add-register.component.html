@@ -1,0 +1,36 @@
+<h3>Add a new User</h3>
+<div [hidden]="submitted" style="width: 300px;">
+    <form (ngSubmit)="onSubmit()" ngNativeValidate>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" required [(ngModel)]="user.username" name="username">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Account Email</label>
+            <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
+        </div>
+
+        <div class="form-group">
+            <label for="user_type">User Type</label>
+            <select class="form-control" id="user_type" required [(ngModel)]="user.user_type" name="user_type">
+                <option [ngValue]="1">Admin</option>
+                <option [ngValue]="2">Financial</option>
+                <option [ngValue]="3">Employee</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button class="btn btn-secondary" routerLink="/admin/registers" routerLinkActive="active">Go back</button>
+    </form>
+</div>
+<div [hidden]="!submitted">
+    <h4>You submitted successfully!</h4>
+    <button class="btn btn-success" (click)="newRegister()">Add</button>
+    <button class="btn btn-secondary" routerLink="/admin/registers" routerLinkActive="active">Go back</button>
+</div>

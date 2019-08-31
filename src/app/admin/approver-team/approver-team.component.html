@@ -1,0 +1,36 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'ApproverTeams'" [icon]="'fa-edit'"></app-page-header>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Team</th>
+                <th>Approver</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let approverTeam of approverTeams | async" style="width: 300px;">
+                <td>
+                    {{approverTeam.id}}
+                </td>
+                <td>
+                    {{approverTeam.team.code}} >> {{approverTeam.team.description}}
+                </td>
+                <td>
+                    {{approverTeam.approver.employee.personal_number}} >> {{approverTeam.approver.employee.first_name}} {{approverTeam.approver.employee.last_name}}
+                </td>
+                <td>
+                    <button  class="btn btn-danger fa fa-trash" (click)='deleteApproverTeam(approverTeam.id)'></button>
+                    <button [routerLink]="['updateApproverTeam', approverTeam.id]" class="btn btn-warning fa fa-pencil" role="button" routerlinkactive="active"></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <button type="button" [routerLink]="['addApproverTeam']" class="btn btn-primary" role="button" routerlinkactive="active">Add approverTeam</button>
+        <button type="button" class="btn btn-danger" (click)='deleteApproverTeams()'>Delete All</button>
+    </div>
+    <hr />
+    <router-outlet></router-outlet>
+</div>

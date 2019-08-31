@@ -1,0 +1,33 @@
+<div [hidden]="!submitted" class="alert {{alertcolor}} alert-dismissible fade show" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div [innerHTML]="alertmsg"></div>
+</div>
+<h3>Update an Approver team</h3>
+<div style="width: 300px;">
+    <form [formGroup]="approverTeamForm" (ngSubmit)="onSubmit(approverTeamForm.value)" ngNativeValidate>
+
+        <div class="form-group">
+            <label for="id"></label>
+            <input type="text" hidden class="form-control" id="id" required formControlName="id">
+        </div>
+
+        <div class="form-group">
+            <label for="team">Team</label>
+            <select class="form-control" id="team"  required formControlName="team" [compareWith]="compareFn">
+                <option *ngFor="let team of teams | async" [ngValue]="team">{{team.code}} >> {{team.description}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="approver">Approver</label>
+            <select class="form-control" id="approver"  required formControlName="approver" [compareWith]="compareFn">
+                <option *ngFor="let approver of approvers | async" [ngValue]="approver">{{approver.employee.personal_number}} >> {{approver.employee.first_name}} {{approver.employee.last_name}}</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+        <button class="btn btn-secondary" routerLink="/admin/approverTeams" routerLinkActive="active">Go back</button>
+    </form>
+</div>

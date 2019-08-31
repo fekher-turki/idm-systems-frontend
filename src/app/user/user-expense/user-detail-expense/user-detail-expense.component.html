@@ -1,0 +1,44 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Expenses'" [icon]="'fa-edit'"></app-page-header>
+
+    <div *ngFor="let expense of expenses | async">
+        <b>Expense Report: </b>
+        {{expense.expenseReport.reference}}
+        <br>
+        <b>ID: </b>
+        {{expense.id}}
+        <br>
+        <b>Reference: </b>
+        {{expense.reference}}
+        <br>
+        <b>Date: </b>
+        {{expense.date}}
+        <br>
+        <b>Image: </b>
+        <img src="{{baseUrl+expense.image}}" alt="expense" class="center">
+        <br>
+        <b>Category Team: </b>
+        {{expense.category.name}}
+        <br>
+        <b>Description: </b>
+        {{expense.description}}
+        <br>
+        <b>Initial amount: </b>
+        {{expense.amount_ini}} {{expense.currency.code}}
+        <br>
+        <b>Final amount: </b>
+        {{expense.amount_final}} TND
+        <br>
+        <b>Exchange rate value: </b>
+        {{expense.exchangeRate.value}}
+        <br>
+        <b>Draft: </b>
+        <ng-container *ngIf="expense.draft == 0">
+            <font color="red">No</font>
+        </ng-container>
+        <ng-container  *ngIf="expense.draft == 1">
+            <font color="green">Yes</font>
+        </ng-container >
+    </div>
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,81 @@
+<div [hidden]="!submitted" class="alert {{alertcolor}} alert-dismissible fade show" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div [innerHTML]="alertmsg"></div>
+</div>
+<h3>Update a Expense</h3>
+<div style="width: 300px;">
+    <form [formGroup]="expenseForm" (ngSubmit)="onSubmit(expenseForm.value)" ngNativeValidate>
+
+        <div class="form-group">
+            <label for="id"></label>
+            <input type="text" hidden class="form-control" id="id" required formControlName="id">
+        </div>
+
+        <div class="form-group">
+            <label for="reference">Reference</label>
+            <input type="text" class="form-control" id="reference" required formControlName="reference">
+        </div>
+
+        <div class="form-group">
+            <label for="expenseReport">Expense report</label>
+            <select class="form-control" id="expenseReport"  required formControlName="expenseReport" [compareWith]="compareFn">
+                <option *ngFor="let expenseReport of expenseReports | async" [ngValue]="expenseReport">{{expenseReport.reference}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" id="date" required formControlName="date">
+        </div>
+
+        <div class="form-group">
+            <label for="image">image</label>
+            <input type="file" class="form-control" id="image" formenctype="multipart/form-data" (change)="onFileSelected($event)">
+            <ng-container *ngFor="let expense of expenses | async">
+                <img src="http://127.0.0.1:8000{{expense.image}}" alt="expense" class="center">
+            </ng-container>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category"  required formControlName="category" [compareWith]="compareFn">
+                <option *ngFor="let category of categories | async" [ngValue]="category">{{category.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" required formControlName="description">
+        </div>
+
+        <div class="form-group">
+            <label for="amount_ini">Amount</label>
+            <input type="number" class="form-control" id="amount_ini" min="0.01" step="0.001" required formControlName="amount_ini">
+        </div>
+
+        <div class="form-group">
+            <label for="currency">Currency</label>
+            <select class="form-control" id="currency"  required formControlName="currency" [compareWith]="compareFn">
+                <option *ngFor="let currency of currencies | async" [ngValue]="currency">{{currency.description}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <div class="radio" >
+                Draft
+                <label class="btn btn-default blue">
+                    <input type="radio" class="toggle" [value]="1" name="draft" formControlName="draft">Yes
+                </label>
+                <label class="btn btn-default blue">
+                    <input type="radio" class="toggle" [value]="0" name="draft" formControlName="draft">No
+                </label>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-success">Update</button>
+        <button class="btn btn-secondary" routerLink="/user/userExpenses" routerLinkActive="active">Go back</button>
+    </form>
+</div>
