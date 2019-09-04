@@ -44,7 +44,7 @@ export class DetailExpenseReportComponent implements OnInit {
             let i;
             this.total = 0.00;
             for (i = 0; i < data.length; i++) {
-                if (data[i].draft == 0) {
+                if (data[i].draft == 0 && data[i].status == 1) {
                     this.total += data[i].amount_final;
                 }
             }

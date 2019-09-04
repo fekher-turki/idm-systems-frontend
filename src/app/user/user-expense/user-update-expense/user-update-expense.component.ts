@@ -84,6 +84,7 @@ export class UpdateExpenseComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         const fd = new FormData();
+        fd.append('id', form['id']);
         fd.append('reference', form['reference']);
         fd.append('expenseReport', JSON.stringify(form['expenseReport']));
         fd.append('date', form['date']);
@@ -110,7 +111,7 @@ export class UpdateExpenseComponent implements OnInit {
                     this.alertcolor = 'alert-success';
                 },
                 error => {
-                    console.log(error.body);
+                    alert('Error occurred!');
                 });
         this.alertmsg = 'Error occurred!';
         this.alertcolor = 'alert-warning';

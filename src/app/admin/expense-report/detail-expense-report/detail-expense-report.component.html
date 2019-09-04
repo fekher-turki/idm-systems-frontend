@@ -59,6 +59,7 @@
                     <th>Final amount</th>
                     <th>ExchangeRate</th>
                     <th>Draft</th>
+                    <th>Approval</th>
                     <th>Action</th>
                 </tr>
             </tbody>
@@ -75,10 +76,18 @@
                     <td>{{expense.exchangeRate.value}}</td>
                     <td>
                         <div *ngIf="expense.draft == 0">
-                            <font color="red">No</font>
+                            <font color="green">No</font>
                         </div>
                         <div *ngIf="expense.draft == 1">
-                            <font color="green">Yes</font>
+                            <font color="red">Yes</font>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="expense.status == 0">
+                            <font color="red">Not approved</font>
+                        </div>
+                        <div *ngIf="expense.status == 1">
+                            <font color="green">Approved</font>
                         </div>
                     </td>
                     <td>

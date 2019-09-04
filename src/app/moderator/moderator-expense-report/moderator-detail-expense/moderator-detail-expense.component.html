@@ -32,12 +32,12 @@
         <b>Exchange rate value: </b>
         {{expense.exchangeRate.value}}
         <br>
-        <b>Draft: </b>
-        <ng-container *ngIf="expense.draft == 0">
-            <font color="red">No</font>
+        <b>Approval: </b>
+        <ng-container *ngIf="expense.status == 0">
+            <font color="red">Not approved</font>
         </ng-container>
-        <ng-container  *ngIf="expense.draft == 1">
-            <font color="green">Yes</font>
+        <ng-container  *ngIf="expense.status == 1">
+            <font color="green">Approved</font>
         </ng-container >
     </div>
     <router-outlet></router-outlet>

@@ -58,7 +58,7 @@
                 <th>Initial amount</th>
                 <th>Final amount</th>
                 <th>ExchangeRate</th>
-                <th>Approverd</th>
+                <th>Approval</th>
                 <th>Action</th>
             </tr>
             </tbody>
@@ -75,8 +75,8 @@
                     <td>{{expense.amount_final}} TND</td>
                     <td>{{expense.exchangeRate.value}}</td>
                     <td>
-                        <ng-container *ngIf="expense.status==true">Approved</ng-container>
-                        <ng-container *ngIf="expense.status==false">Not Approved</ng-container>
+                        <ng-container *ngIf="expense.status==true"><font color="green">Approved</font></ng-container>
+                        <ng-container *ngIf="expense.status==false"><font color="red">Not approved</font></ng-container>
                     </td>
                     <td>Number of approvers: {{approvers}} <br/>
                         <ng-container *ngFor="let expenseStatus of expenseStatuses | async">

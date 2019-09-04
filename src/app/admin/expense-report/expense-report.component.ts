@@ -58,7 +58,7 @@ export class ExpenseReportComponent implements OnInit {
                 }
             ];
             for (i = 0; i < data.length; i++) {
-                if (data[i].draft == 0) {
+                if (data[i].draft == 0 && data[i].status == 1) {
                     this.dataline = {
                         'id': data[i].id,
                         'Reference': data[i].reference,

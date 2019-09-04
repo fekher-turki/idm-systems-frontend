@@ -33,7 +33,11 @@ export class ExpenseComponent implements OnInit {
                     console.log(data);
                     this.expenses = this.expenseService.getExpenseList();
                 },
-                error => console.log(error));
+                error => {
+                    console.log(error);
+                    alert('You cannot delete this expense !');
+                    location.reload();
+                });
     }
 
     getData() {
